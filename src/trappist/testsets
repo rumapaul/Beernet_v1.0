@@ -1,0 +1,39 @@
+#!/bin/sh
+
+echo "------------ Starting test on Sets ----------"
+
+echo "Reading set with key foo. Should be"
+echo "empty"
+./pbeer readSet -k foo
+
+echo "Adding bar to set with key foo"
+./pbeer add -k foo -v bar
+
+echo "Reading set with key foo. Should be"
+echo "set(bar)"
+./pbeer readSet -k foo
+
+echo "Adding barbar to set with key foo"
+./pbeer add -k foo -v barbar
+
+echo "Reading set with key foo. Should be"
+echo "set(bar barbar)"
+./pbeer readSet -k foo
+
+echo "Removing bar from set with key foo"
+./pbeer remove -k foo -v bar
+
+echo "Reading set with key foo. Should be"
+echo "set(barbar)"
+./pbeer readSet -k foo
+
+echo "Removing wrong value from set with key foo"
+./pbeer remove -k foo -v wrong
+
+echo "Reading set with key foo. Should be"
+echo "set(barbar)"
+./pbeer readSet -k foo
+
+echo "End of test"
+
+

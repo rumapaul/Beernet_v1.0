@@ -1,0 +1,47 @@
+#!/bin/sh
+
+echo "WARNING. We are assuming that no value is stored using key foo"
+echo "Writing foo with bar"
+./pbeer write -k foo -v bar --secret foo
+
+echo "Reading key foo. Should be"
+echo "bar"
+./pbeer read -k foo
+
+echo "Rewrite key foo with barbar"
+./pbeer	write -k foo -v barbar --secret foo
+echo "Reading key foo. Should be"
+echo "barbar"
+./pbeer read -k foo
+
+echo "Rewrite key foo with barbarbar but wrong secret"
+./pbeer	write -k foo -v barbarbar --secret foo2
+echo "Reading key foo. Should still be"
+echo "barbar"
+./pbeer read -k foo
+
+echo "Erasing value of key foo"
+./pbeer erase -k foo --secret foo
+echo "Reading key foo. Should be"
+echo "NOT_FOUND"
+./pbeer read -k foo
+
+echo "Writing key foo with bar and different secret"
+./pbeer write -k foo -v bar --secret bar
+
+echo "Reading key foo. Should be"
+echo "bar"
+./pbeer read -k foo
+
+echo "Erasing key foo with wrong secret. Should fail"
+./pbeer erase -k foo --secret foo
+
+echo "Reading key foo. Should still be"
+echo "bar"
+./pbeer read -k foo
+
+echo "------------ End of Paxos tests -------------"
+echo ""
+echo "------------ Starting test on Sets ----------"
+
+./testsets

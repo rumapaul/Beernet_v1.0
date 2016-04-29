@@ -1,0 +1,13 @@
+- All protocols
+   - Add remove operation
+
+- Paxos
+	- Manage better locks for reading
+	- Propagate final decision to participants
+
+- Bulk
+   - Bulk to identifier, not only of client keys
+
+- Key/Value-Sets
+   - Take decisions per item, not only global
+   - Retry immediately on conflict
